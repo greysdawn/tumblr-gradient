@@ -38,7 +38,7 @@ class Main extends Component {
 		grad = grad.rgb(st.text.length);
 
 		st.code = "<p>"+txt.map((l,i) =>{
-			return `<span style="color: #${grad[i].toHex()}">${l}</span>`
+			return (l == "\n" ? "<br/>" : `<span style="color: #${grad[i].toHex()}">${l}</span>`)
 		}).join("")+"</p>";
 
 		this.setState(st);
