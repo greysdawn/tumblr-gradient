@@ -1,0 +1,9 @@
+{
+    "type": "link",
+    "version": "1.0",
+    "title": "Tumblr Gradient Generator",
+    "provider_name":"Generator for gradients on tumblr.com",
+    "thumbnail_url": "https://tg.greysdawn.tk/favicon.png",
+    "thumbnail_width": 32,
+    "thumbnail_height": 32
+}
