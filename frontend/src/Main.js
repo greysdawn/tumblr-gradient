@@ -11,9 +11,7 @@ class Main extends Component {
 
 		this.state = {
 			text: "",
-			color1: "",
-			color2: "",
-			code: ""
+			colors: []
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -23,10 +21,17 @@ class Main extends Component {
 	handleChange(name, e) {
 		const n = name;
 		const val = e.target.value;
-		this.setState((state) => {
-			state[n] = val;
-			return state;
-		})
+		if(n.includes("color")) {
+			this.setState((state)=> {
+				state.colors[parseInt(n.replace("color",""))] = val;
+				return state;
+			})
+		} else {
+			this.setState((state) => {
+				state[n] = val;
+				return state;
+			})
+		}
 	}
 
 	async handleSubmit(e) {
@@ -34,14 +39,17 @@ class Main extends Component {
 		var st = this.state;
 
 		var txt = st.text.split('');
-		var grad = tg(st.color1, st.color2);
+		var grad = tg(...st.colors.filter(x => x!=""));
 		grad = grad.rgb(st.text.length);
 
 		st.code = "<p>"+txt.map((l,i) =>{
 			return (l == "\n" ? "<br/>" : `<span style="color: #${grad[i].toHex()}">${l}</span>`)
 		}).join("")+"</p>";
 
-		this.setState(st);
+		this.setState(state => {
+			state = st;
+			return state;
+		});
 	}
 
 	render() {
@@ -54,9 +62,15 @@ class Main extends Component {
 				<div className="App-section">
 					<p>Colors:</p>
 					<form onSubmit={this.handleSubmit}>
-						<input type="text" onChange={(e)=>this.handleChange("color1",e)} name="color1" value={this.state.color1}/>
+						<input type="text" onChange={(e)=>this.handleChange("color0",e)} name="color0" value={this.state.colors[0]}/>
 						<br/>
-						<input type="text" onChange={(e)=>this.handleChange("color2",e)} name="color2" value={this.state.color2}/>
+						<input type="text" onChange={(e)=>this.handleChange("color1",e)} name="color1" value={this.state.colors[1]}/>
+						<br/>
+						<input type="text" onChange={(e)=>this.handleChange("color2",e)} name="color2" value={this.state.colors[2]}/>
+						<br/>
+						<input type="text" onChange={(e)=>this.handleChange("color3",e)} name="color3" value={this.state.colors[3]}/>
+						<br/>
+						<input type="text" onChange={(e)=>this.handleChange("color4",e)} name="color4" value={this.state.colors[4]}/>
 						<br/>
 						<button type="submit">go!</button>
 					</form>
