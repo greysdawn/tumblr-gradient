@@ -11,7 +11,8 @@ class Main extends Component {
 
 		this.state = {
 			text: "",
-			colors: []
+			colors: [],
+			copied: false
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -39,7 +40,7 @@ class Main extends Component {
 		var st = this.state;
 
 		var txt = st.text.split('');
-		var grad = tg(...st.colors.filter(x => x!=""));
+		var grad = tg(...st.colors.filter(x => x!="" && x!=null));
 		grad = grad.rgb(st.text.length);
 
 		st.code = "<p>"+txt.map((l,i) =>{
@@ -51,6 +52,13 @@ class Main extends Component {
 			return state;
 		});
 	}
+
+	copy = (e) => {
+	    this.textarea.select();
+	    document.execCommand('copy');
+	    e.target.focus();
+		this.setState({ copied: true });
+	 };
 
 	render() {
 		return (
@@ -72,6 +80,16 @@ class Main extends Component {
 						<br/>
 						<input type="text" onChange={(e)=>this.handleChange("color4",e)} name="color4" value={this.state.colors[4]}/>
 						<br/>
+						<input type="text" onChange={(e)=>this.handleChange("color5",e)} name="color5" value={this.state.colors[5]}/>
+						<br/>
+						<input type="text" onChange={(e)=>this.handleChange("color6",e)} name="color6" value={this.state.colors[6]}/>
+						<br/>
+						<input type="text" onChange={(e)=>this.handleChange("color7",e)} name="color7" value={this.state.colors[7]}/>
+						<br/>
+						<input type="text" onChange={(e)=>this.handleChange("color8",e)} name="color8" value={this.state.colors[8]}/>
+						<br/>
+						<input type="text" onChange={(e)=>this.handleChange("color9",e)} name="color9" value={this.state.colors[9]}/>
+						<br/>
 						<button type="submit">go!</button>
 					</form>
 				</div>
@@ -80,8 +98,8 @@ class Main extends Component {
 				<div className="App-preview" dangerouslySetInnerHTML={{__html: this.state.code}}></div>
 				</div>
 				<div className="App-section">
-					<p>Code: </p>
-					<textarea rows="10" cols="50" value={this.state.code}></textarea>
+					<p>Code: <span style={{backgroundColor: this.state.copied ? '#6a6' : '#333', cursor: 'pointer', padding: '0 5px', borderRadius: '5px'}} onClick={this.copy}>{this.state.copied ? 'copied!' : 'copy'}</span></p>
+					<textarea ref={(textarea)=>this.textarea = textarea} rows="10" cols="50" value={this.state.code}></textarea>
 				</div>
 	      	</div>
 		)
