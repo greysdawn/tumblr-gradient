@@ -6,4 +6,4 @@ Just throw in the text you want, 2 colors you'd like, and hit "Go!" Should work 
 
 Uses [tinygradient](https://www.npmjs.com/package/tinygradient), accepts both color names and hex codes.
 
-Website available here: https://tg.greysdawn.tk/
+Website available here: https://tg.greysdawn.com/
